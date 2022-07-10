@@ -1,7 +1,7 @@
 'use strict';
 exports.readonly = false; // Inserting 100 rows in a single transaction
 
-exports['better-sqlite3'] = (db, { table, columns }) => {
+exports['better-sqlite3-int'] = (db, { table, columns }) => {
 	const stmt = db.prepare(`INSERT INTO ${table} (${columns.join(', ')}) VALUES (${columns.map(x => '@' + x).join(', ')})`);
 	const row = db.prepare(`SELECT * FROM ${table} LIMIT 1`).get();
 	const trx = db.transaction((row) => {

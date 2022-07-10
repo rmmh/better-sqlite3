@@ -1,7 +1,7 @@
 'use strict';
 exports.readonly = true; // Reading rows individually (`.get()`)
 
-exports['better-sqlite3'] = (db, { table, columns, count }) => {
+exports['better-sqlite3-int'] = (db, { table, columns, count }) => {
 	const stmt = db.prepare(`SELECT ${columns.join(', ')} FROM ${table} WHERE rowid = ?`);
 	let rowid = -1;
 	return () => stmt.get(++rowid % count + 1);

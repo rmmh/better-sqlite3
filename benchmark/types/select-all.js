@@ -1,7 +1,7 @@
 'use strict';
 exports.readonly = true; // Reading 100 rows into an array (`.all()`)
 
-exports['better-sqlite3'] = (db, { table, columns, count }) => {
+exports['better-sqlite3-int'] = (db, { table, columns, count }) => {
 	const stmt = db.prepare(`SELECT ${columns.join(', ')} FROM ${table} WHERE rowid >= ? LIMIT 100`);
 	let rowid = -100;
 	return () => stmt.all((rowid += 100) % count + 1);

@@ -7,7 +7,7 @@
  */
 
 module.exports = new Map([
-	['better-sqlite3', async (filename, pragma) => {
+	['better-sqlite3-int', async (filename, pragma) => {
 		const db = require('../.')(filename);
 		for (const str of pragma) db.pragma(str);
 		return db;
