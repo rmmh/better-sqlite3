@@ -42,14 +42,18 @@
 
 #define SQLITE_VALUE_TO_JS(from, isolate, safe_ints, ...)                      \
 	switch (sqlite3_##from##_type(__VA_ARGS__)) {                              \
-	case SQLITE_INTEGER:                                                       \
+	case SQLITE_INTEGER: {                                                     \
+	    sqlite3_int64 v = sqlite3_##from##_int64(__VA_ARGS__);                 \
 		if (safe_ints) {                                                       \
 			return v8::BigInt::New(                                            \
 				isolate,                                                       \
-				sqlite3_##from##_int64(__VA_ARGS__)                            \
+				v                                                              \
 			);                                                                 \
 		}                                                                      \
-	case SQLITE_FLOAT:                                                         \
+		if (v >= INT32_MIN && v <= INT32_MAX) {                                \
+		    return v8::Int32::New(isolate, v);                                 \
+		}                                                                      \
+	} case SQLITE_FLOAT:                                                       \
 		return v8::Number::New(                                                \
 			isolate,                                                           \
 			sqlite3_##from##_double(__VA_ARGS__)                               \

@@ -59,17 +59,17 @@ describe('BigInts', function () {
 	});
 	it('should get passed to functions defined with the "safeIntegers" option', function () {
 		this.db.function('customfunc', { safeIntegers: true }, (a) => { return (typeof a) + a; });
-		expect(this.db.prepare('SELECT customfunc(?)').pluck().get(2)).to.equal('number2');
+		expect(this.db.prepare('SELECT customfunc(?)').pluck().get(2.5)).to.equal('number2.5');
 		expect(this.db.prepare('SELECT customfunc(?)').pluck().get(BigInt(2))).to.equal('bigint2');
 	});
 	it('should get passed to aggregates defined with the "safeIntegers" option', function () {
 		this.db.aggregate('customagg', { safeIntegers: true, step: (_, a) => { return (typeof a) + a; } });
-		expect(this.db.prepare('SELECT customagg(?)').pluck().get(2)).to.equal('number2');
+		expect(this.db.prepare('SELECT customagg(?)').pluck().get(2.5)).to.equal('number2.5');
 		expect(this.db.prepare('SELECT customagg(?)').pluck().get(BigInt(2))).to.equal('bigint2');
 	});
 	it('should get passed to virtual tables defined with the "safeIntegers" option', function () {
 		this.db.table('customvtab', { safeIntegers: true, columns: ['x'], *rows(a) { yield [(typeof a) + a]; } });
-		expect(this.db.prepare('SELECT * FROM customvtab(?)').pluck().get(2)).to.equal('number2');
+		expect(this.db.prepare('SELECT * FROM customvtab(?)').pluck().get(2.5)).to.equal('number2.5');
 		expect(this.db.prepare('SELECT * FROM customvtab(?)').pluck().get(BigInt(2))).to.equal('bigint2');
 	});
 	it('should respect the default setting on the database', function () {

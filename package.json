@@ -1,6 +1,6 @@
 {
   "name": "better-sqlite3-int",
-  "version": "7.6.1",
+  "version": "7.6.2",
   "description": "The fastest and simplest library for SQLite3 in Node.js, forked for better int support.",
   "homepage": "http://github.com/rmmh/better-sqlite3-int",
   "author": "Ryan Hitchman <hitchmanr@gmail.com>",
