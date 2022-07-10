@@ -50,5 +50,6 @@
     "aggregate functions",
     "window functions",
     "database"
-  ]
+  ],
+  "typings": "./lib/index.d.ts"
 }
